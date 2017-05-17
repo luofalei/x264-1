@@ -20,10 +20,10 @@ fi
 SOURCE=`pwd`
 PREFIX=$SOURCE/build/android
 
-SYSROOT=$ANDROID_NDK/platforms/android-14/arch-arm
-CROSS_PREFIX=$ANDROID_NDK/toolchains/arm-linux-androideabi-4.8/prebuilt/$HOST_SYSTEM/bin/arm-linux-androideabi-
+SYSROOT=$ANDROID_NDK/platforms/android-19/arch-arm
+CROSS_PREFIX=$ANDROID_NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/$HOST_SYSTEM/bin/arm-linux-androideabi-
 EXTRA_CFLAGS="-march=armv7-a -mfloat-abi=softfp -mfpu=neon -D__ARM_ARCH_7__ -D__ARM_ARCH_7A__"
-EXTRA_LDFLAGS="-nostdlib"
+EXTRA_LDFLAGS=""
 
 ./configure  --prefix=$PREFIX \
 	--cross-prefix=$CROSS_PREFIX \
@@ -32,10 +32,9 @@ EXTRA_LDFLAGS="-nostdlib"
 	--enable-pic \
 	--enable-static \
 	--enable-strip \
-	--disable-cli \
 	--host=arm-linux \
 	--sysroot=$SYSROOT
 
 make clean
-make STRIP= -j4 install || exit 1
+make STRIP= -j4 # install || exit 1
 
